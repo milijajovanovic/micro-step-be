@@ -1,0 +1,25 @@
+services:
+  micro_step_db:
+    image: postgres:latest
+    container_name: micro_step_db
+    ports:
+      - "54323:5432"
+    environment:
+      POSTGRES_DB: micro_step_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - micro_step_db:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  micro_step_adminer:
+    image: adminer:latest
+    container_name: micro_step_adminer
+    depends_on:
+      - micro_step_db
+    ports:
+      - "8881:8080"
+    restart: unless-stopped
+
+volumes:
+  micro_step_db:
