@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
-import { Environment } from "./";
+import { Environment } from "./environment.config";
 import { NodeEnv } from "../shared/enums";
+import path from "path";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -12,4 +13,5 @@ export const AppDataSource = new DataSource({
   synchronize: Environment.NODE_ENV === NodeEnv.DEV ? true : false,
   logging: true,
   entities: [],
+  migrations: [path.join(__dirname, "../../migrations/*.{ts,js}")],
 });
